@@ -85,9 +85,7 @@ declare const TodoListApplication_base: (new (...args: any[]) => {
     eventNames: () => (string | symbol)[];
     listenerCount: (type: string | symbol) => number;
 }) & (new (...args: any[]) => {
-    serviceProvider<S_1>(provider: import("@loopback/core").Constructor<import("@loopback/core").Provider<S_1>>, nameOrOptions?: string | import("@loopback/core").ServiceOptions | undefined): import("@loopback/boot").Binding<S_1>; /**
-     * Configure `multer` options for file upload
-     */
+    serviceProvider<S_1>(provider: import("@loopback/core").Constructor<import("@loopback/core").Provider<S_1>>, nameOrOptions?: string | import("@loopback/core").ServiceOptions | undefined): import("@loopback/boot").Binding<S_1>;
     component<C_1 extends import("@loopback/core").Component = import("@loopback/core").Component>(componentCtor: import("@loopback/core").Constructor<C_1>, nameOrOptions?: string | import("@loopback/core").BindingFromClassOptions | undefined): import("@loopback/boot").Binding<C_1>;
     mountComponentServices<C_1_1 extends import("@loopback/core").Component = import("@loopback/core").Component>(component: import("@loopback/core").Constructor<C_1_1>, componentBindingKey?: string | import("@loopback/core").BindingKey<C_1_1> | undefined): void;
     readonly options: ApplicationConfig;

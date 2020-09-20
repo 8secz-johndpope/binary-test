@@ -31,6 +31,7 @@ export class TodoListApplication extends BootMixin(
 
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
+    this.static('/', path.join(__dirname, '../public/files'));
 
     this.component(RestExplorerComponent);
 

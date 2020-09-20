@@ -52,7 +52,6 @@ let AdvertController = class AdvertController {
                 files.push(...uploadedFiles[filename].map(mapper));
             }
         }
-        console.log(files);
         // since we are only allow 1 file at a time
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const file = files[0];

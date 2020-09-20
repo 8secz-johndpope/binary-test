@@ -25,6 +25,7 @@ class TodoListApplication extends boot_1.BootMixin(service_proxy_1.ServiceMixin(
         this.sequence(sequence_1.MySequence);
         // Set up default home page
         this.static('/', path_1.default.join(__dirname, '../public'));
+        this.static('/', path_1.default.join(__dirname, '../public/files'));
         this.component(rest_explorer_1.RestExplorerComponent);
         this.projectRoot = __dirname;
         // Customize @loopback/boot Booter Conventions here
