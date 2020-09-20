@@ -14,7 +14,8 @@ This application covers 3 aspects
 
 ## Usage
 
-Start the application by running npm start and go to
+Before starting application you can dump the db sample from `data/binary-test.sql` and specify your local db settings at `src/datasources/db.datasources.ts`
+Now start the application by running npm start and go to
 
 http://localhost:3000/explorer. You’ll see the 3 new endpoints under
 
