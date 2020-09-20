@@ -117,6 +117,7 @@ VIDEO TYPE
 2. Adding Request throttling i.e. not allowing more than 1 request per second from single IP
 3. Doing it in a microservice architecture where file upload is handled by separate process to balance the load.
 4. Adding more security on file upload to avoid corrupt images and file by detecting inconsistent bytecodes while uploading data.
+5. Maintaining multiple environment for deployment and testing.
 
 ## License
 
