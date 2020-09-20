@@ -10,11 +10,11 @@ const config = {
   name: 'db',
   connector: 'mysql',
   url: '',
-  host: 'localhost',
+  host: 'us-cdbr-east-02.cleardb.com',
   port: 3306,
-  user: 'root',
-  password: '',
-  database: 'binary-test',
+  user: 'bec31330a8d2a3',
+  password: 'd582f404',
+  database: 'heroku_44c1af9094d31da',
 };
 
 export class DbDataSource extends juggler.DataSource {
