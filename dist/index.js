@@ -23,7 +23,7 @@ if (require.main === module) {
     const config = {
         rest: {
             port: +((_a = process.env.PORT) !== null && _a !== void 0 ? _a : 3000),
-            host: (_b = process.env.HOST) !== null && _b !== void 0 ? _b : 'localhost',
+            host: (_b = process.env.HOST) !== null && _b !== void 0 ? _b : '0.0.0.0',
             openApiSpec: {
                 // useful when used with OpenAPI-to-GraphQL to locate your application
                 setServersFromRequest: true,
