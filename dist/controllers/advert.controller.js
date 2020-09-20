@@ -60,7 +60,7 @@ let AdvertController = class AdvertController {
             title: request.body['title'],
             description: request.body['description'],
             mediaType: file.mimetype === 'video/mp4' ? 'video' : 'image',
-            mediaLink: '/file/' + file.originalname,
+            mediaLink: file.originalname,
         });
         // return {files, fields: request.body};
     }
