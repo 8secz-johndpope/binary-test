@@ -30,7 +30,6 @@
     "verify": "npm pack && tar xf loopback-todo*.tgz && tree package && npm run clean",
     "migrate": "node ./dist/migrate",
     "openapi-spec": "node ./dist/openapi-spec",
-    "prestart": "npm run build",
     "start": "node ."
   },
   "dependencies": {
