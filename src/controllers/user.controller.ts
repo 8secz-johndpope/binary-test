@@ -1,0 +1,168 @@
+/**
+ * @author Shuja Ahmed
+ * @email shujahm@gmail.com
+ * @create date 2020-09-18 00:48:02
+ * @modify date 2020-09-18 00:48:02
+ * @desc this acts as a simple user controller to provide user login API
+ */
+
+import {authenticate, TokenService} from '@loopback/authentication';
+import {
+  Credentials,
+  MyUserService,
+  TokenServiceBindings,
+  User,
+  UserRepository,
+  UserServiceBindings,
+} from '@loopback/authentication-jwt';
+import {inject} from '@loopback/core';
+import {model, property, repository} from '@loopback/repository';
+import {get, getModelSchemaRef, post, requestBody} from '@loopback/rest';
+import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
+import {genSalt, hash} from 'bcryptjs';
+import _ from 'lodash';
+
+@model()
+export class NewUserRequest extends User {
+  @property({
+    type: 'string',
+    required: true,
+  })
+  password: string;
+}
+
+/**
+ * the following schema is used for the response body
+ */
+const CredentialsRequestSchema = {
+  type: 'object',
+  required: ['email', 'password'],
+  properties: {
+    email: {
+      type: 'string',
+      format: 'email',
+    },
+    password: {
+      type: 'string',
+      minLength: 8,
+    },
+  },
+};
+
+export const CredentialsRequestBody = {
+  description: 'The input of login function',
+  required: true,
+  content: {
+    'application/json': {schema: CredentialsRequestSchema},
+  },
+};
+
+export class UserController {
+  constructor(
+    @inject(TokenServiceBindings.TOKEN_SERVICE)
+    public jwtService: TokenService,
+    @inject(UserServiceBindings.USER_SERVICE)
+    public userService: MyUserService,
+    @inject(SecurityBindings.USER, {optional: true})
+    public user: UserProfile,
+    @repository(UserRepository) protected userRepository: UserRepository,
+  ) {}
+
+  /**
+   * the following method is used to login user with given credentials
+   * @param credentials
+   */
+  @post('/users/login', {
+    responses: {
+      '200': {
+        description: 'Login API used to authorize the user and generate JWT',
+        content: {
+          'application/json': {
+            schema: {
+              type: 'object',
+              properties: {
+                token: {
+                  type: 'string',
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  })
+  async login(
+    @requestBody(CredentialsRequestBody) credentials: Credentials,
+  ): Promise<{user: object; token: string}> {
+    // ensure the user exists, and the password is correct
+    const user = await this.userService.verifyCredentials(credentials);
+    // convert a User object into a UserProfile object (reduced set of properties)
+    const userProfile = this.userService.convertToUserProfile(user);
+
+    // create a JSON Web Token based on the user profile
+    const token = await this.jwtService.generateToken(userProfile);
+    return {
+      user: userProfile,
+      token: token,
+    };
+  }
+
+  @authenticate('jwt')
+  @get('/whoAmI', {
+    responses: {
+      '200': {
+        description: '',
+        schema: {
+          type: 'string',
+        },
+      },
+    },
+  })
+  async whoAmI(
+    @inject(SecurityBindings.USER)
+    currentUserProfile: UserProfile,
+  ): Promise<string> {
+    return currentUserProfile[securityId];
+  }
+
+  /**
+   * the following method defines the user sign up API
+   * @param newUserRequest
+   */
+  @post('/users/signup', {
+    responses: {
+      '200': {
+        description:
+          'Signup API used to register user based on the default loopback User Schema',
+        content: {
+          'application/json': {
+            schema: {
+              'x-ts-type': User,
+            },
+          },
+        },
+      },
+    },
+  })
+  async signUp(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(NewUserRequest, {
+            title: 'NewUser',
+          }),
+        },
+      },
+    })
+    newUserRequest: NewUserRequest,
+  ): Promise<User> {
+    const password = await hash(newUserRequest.password, await genSalt());
+    const savedUser = await this.userRepository.create(
+      _.omit(newUserRequest, 'password'),
+    );
+
+    await this.userRepository.userCredentials(savedUser.id).create({password});
+
+    return savedUser;
+  }
+}

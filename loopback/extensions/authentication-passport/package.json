@@ -1,0 +1,80 @@
+{
+  "name": "@loopback/authentication-passport",
+  "version": "3.0.0",
+  "description": "A package creating adapters between the passport module and @loopback/authentication",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "engines": {
+    "node": ">=10.16"
+  },
+  "scripts": {
+    "acceptance": "lb-mocha \"dist/__tests__/acceptance/**/*.js\"",
+    "build:apidocs": "lb-apidocs",
+    "build": "lb-tsc",
+    "clean": "lb-clean loopback-authentication-passport*.tgz dist *.tsbuildinfo package",
+    "pretest": "npm run build",
+    "test": "lb-mocha \"dist/__tests__/**/*.js\"",
+    "unit": "lb-mocha \"dist/__tests__/unit/**/*.js\"",
+    "verify": "npm pack && tar xf loopback-authentication-passport*.tgz && tree package && npm run clean"
+  },
+  "author": "IBM Corp.",
+  "copyright.owner": "IBM Corp.",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "keywords": [
+    "Passport",
+    "Authentication",
+    "TypeScript"
+  ],
+  "files": [
+    "README.md",
+    "dist",
+    "src",
+    "!*/__tests__"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/strongloop/loopback-next.git",
+    "directory": "extensions/authentication-passport"
+  },
+  "peerDependencies": {
+    "@loopback/authentication": "^7.0.0",
+    "@loopback/core": "^2.10.0",
+    "@loopback/rest": "^7.0.0"
+  },
+  "dependencies": {
+    "@loopback/security": "^0.3.0",
+    "passport": "^0.4.1",
+    "tslib": "^2.0.1",
+    "util-promisifyall": "^1.0.6"
+  },
+  "devDependencies": {
+    "@loopback/authentication": "^7.0.0",
+    "@loopback/build": "^6.2.3",
+    "@loopback/core": "^2.10.0",
+    "@loopback/eslint-config": "^10.0.0",
+    "@loopback/mock-oauth2-provider": "^0.1.8",
+    "@loopback/openapi-spec-builder": "^2.1.14",
+    "@loopback/rest": "^7.0.0",
+    "@loopback/testlab": "^3.2.5",
+    "@types/jsonwebtoken": "^8.5.0",
+    "@types/lodash": "^4.14.161",
+    "@types/node": "^10.17.35",
+    "@types/passport": "^1.0.4",
+    "@types/passport-http": "^0.3.8",
+    "@types/passport-oauth2": "^1.4.9",
+    "@types/qs": "^6.9.5",
+    "axios": "^0.20.0",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "form-data": "^3.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
+    "passport-http": "^0.3.0",
+    "passport-oauth2": "^1.5.0",
+    "qs": "^6.9.4",
+    "supertest": "^4.0.2"
+  }
+}
