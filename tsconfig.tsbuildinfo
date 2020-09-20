@@ -1867,7 +1867,7 @@
         "affectsGlobalScope": false
       },
       "./src/datasources/db.datasource.ts": {
-        "version": "8ccf332d38ed8d8a1fca9ea7454c002b169eb0a484872540eb851a0e9a7c4cc1",
+        "version": "cc2a3275b7229bd6e68963d40f4c1308de5cf394eedd0192fc40df1aeb39a18c",
         "signature": "f70a718201a6fd1a460f4960a2e4d900d5c8e9a852c5d3a93064eacc83551d4c",
         "affectsGlobalScope": false
       },
@@ -6097,7 +6097,7 @@
         "./src/services/file-upload.service.ts"
       ],
       "./src/types.ts": [
-        "./node_modules/express-serve-static-core/express-serve-static-core.d.ts"
+        "./node_modules/@types/express-serve-static-core/index.d.ts"
       ]
     },
     "semanticDiagnosticsPerFile": [
@@ -6544,5 +6544,5 @@
       "./src/types.ts"
     ]
   },
-  "version": "4.0.2"
+  "version": "4.0.3"
 }
